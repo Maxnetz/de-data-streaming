@@ -1,5 +1,5 @@
 start-datalake:
-	docker compose -f docker-compose.yml up -d --build minio
+	docker compose -f minio.docker-compose.yml up -d --build minio
 
 stop-datalake:
 	docker compose -f docker-compose.yml stop minio
