@@ -1,3 +1,37 @@
+# Project-wide
 .env
 data/
 .DS_Store
+logs/
+__pycache__/
+*.pyc
+
+### Build Artifacts ###
+target/
+*.jar
+*.war
+*.ear
+
+### Maven Wrapper ###
+# We want to keep the wrapper files, but NOT the temporary build data
+# Ensure maven-wrapper.jar is NOT ignored so ./mvnw works everywhere
+
+### IDE Specific ###
+.idea/
+*.iml
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+bin/
+
+### OS Specific ###
+.DS_Store
+Thumbs.db
+
+### Application Specific ###
+.env
+logs/
+temp/
