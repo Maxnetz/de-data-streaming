@@ -1,0 +1,43 @@
+services:
+  demo-stream-service:
+    build: .
+    image: demo-stream-service:dev
+    container_name: demo-stream-service
+    restart: unless-stopped # Self-healing: restarts if it crashes or server reboots
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate # NEVER use 'update' in prod
+    develop:
+      watch:
+        # Watch the source code folder; rebuild the image if anything changes
+        - action: rebuild
+          path: ./src/
+        # Watch the pom.xml; rebuild if you add new dependencies
+        - action: rebuild
+          path: ./pom.xml
+
+    # (Requires Spring Boot Actuator dependency in your pom.xml)
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:8080/actuator/health",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+
+    networks:
+      - demo-stream-network
+
+networks:
+  demo-stream-network:
+    name: demo-stream-network
+    driver: bridge
