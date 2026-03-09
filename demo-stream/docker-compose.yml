@@ -11,14 +11,10 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=validate # NEVER use 'update' in prod
     develop:
       watch:
-        # Watch the source code folder; rebuild the image if anything changes
         - action: rebuild
           path: ./src/
-        # Watch the pom.xml; rebuild if you add new dependencies
         - action: rebuild
           path: ./pom.xml
-
-    # (Requires Spring Boot Actuator dependency in your pom.xml)
     healthcheck:
       test:
         [
